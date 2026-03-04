@@ -1,13 +1,32 @@
 const express = require("express");
+const pool = require("./database");
+
 const app = express();
+app.use(express.json());
 
-app.get("/", (req, res) => res.send("Hello, world!"));
-
-const PORT = 3000;
-app.listen(PORT, (error) => {
-  
-  if (error) {
-    throw error;
+app.listen(3000, () => {
+  console.log("toimiiko");
+});
+app.get("/users", async (req, res) => {
+  try {
+    const result = await pool.query("SELECT * FROM users");
+    res.json(result);
+  } catch (e) {
+    console.error(e);  
   }
-  console.log(`Toimiiko serveri ${PORT}!`);
+});
+app.post("/users", async (req, res) => {
+  try {
+    const user = req.body;
+
+    const result = await pool.query(
+      "INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *", 
+      [user.name, user.email, user.password]
+      
+    );
+
+    res.json(result);
+  } catch (e) {
+    console.error(e);
+  }
 });
