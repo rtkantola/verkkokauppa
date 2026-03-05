@@ -1,0 +1,19 @@
+.product {
+    width: 150px;
+    height: 200px;
+    border: 1px solid;
+    border-radius: 5px;
+    background-color: antiquewhite;
+}
+.productsContent {
+    display: flex;
+    flex: auto;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+.productsContainer {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}

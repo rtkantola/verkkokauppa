@@ -7,6 +7,9 @@ app.use(express.json());
 app.listen(3000, () => {
   console.log("toimiiko");
 });
+
+app.use(express.static("sivut"));
+
 app.get("/users", async (req, res) => {
   try {
     const result = await pool.query("SELECT * FROM users");
@@ -30,3 +33,12 @@ app.post("/users", async (req, res) => {
     console.error(e);
   }
 });
+app.get("/products", async (req, res) => {
+  try {
+    const result = await pool.query("SELECT * FROM tuotteet");
+    res.json(result.rows);
+
+  } catch (e) {
+    console.error(e);
+  }
+})
